@@ -430,13 +430,38 @@
   document.querySelectorAll(".rev").forEach(function (el) { io.observe(el); });
 
   /* mobile lazy reel autoplay */
-  if (!reduceMotion) {
+  /* ===== lazy video playback =====
+     iOS pauses muted autoplay when a video scrolls out of view or the tab is
+     backgrounded, and play() can reject before the first user gesture. So:
+     keep observing (never unobserve), pause off-screen, and retry on the
+     first touch and whenever the tab becomes visible again. */
+  var lazyVids = Array.prototype.slice.call(document.querySelectorAll("[data-lazyplay]"));
+  if (lazyVids.length && !reduceMotion) {
+    var tryPlay = function (v) {
+      if (!v.paused) return;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    };
     var lazyIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.play().catch(function () {}); lazyIO.unobserve(en.target); }
+        if (en.isIntersecting) tryPlay(en.target);
+        else if (!en.target.paused) en.target.pause();
       });
-    }, { rootMargin: "300px" });
-    document.querySelectorAll("[data-lazyplay]").forEach(function (v) { lazyIO.observe(v); });
+    }, { rootMargin: "200px" });
+    lazyVids.forEach(function (v) { lazyIO.observe(v); });
+
+    var retryVisible = function () {
+      lazyVids.forEach(function (v) {
+        var r = v.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < window.innerHeight) tryPlay(v);
+      });
+    };
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) retryVisible();
+    });
+    ["touchstart", "click"].forEach(function (ev) {
+      window.addEventListener(ev, retryVisible, { passive: true, once: true });
+    });
   }
 
   /* ===== FAQ accordion (first open) ===== */
@@ -500,16 +525,30 @@
   });
   document.getElementById("contact-close").addEventListener("click", function () { closeModal(contactModal); });
 
-  ["reel-open-m"].forEach(function (id) {
-    var b = document.getElementById(id);
-    if (b) b.addEventListener("click", function () {
+  var openMobileReel = document.getElementById("reel-open-m");
+  if (openMobileReel) {
+    openMobileReel.addEventListener("click", function () {
       reelFull.src = "assets/reel.mp4";
       openModal(reelModal);
       reelFull.currentTime = 0;
       reelFull.muted = false;
       reelFull.play().catch(function () {});
     });
-  });
+  }
+
+  /* mobile reel sound toggle: the only control over the inline video */
+  var mReelVideo = document.getElementById("m-reel-video");
+  var mReelSound = document.getElementById("m-reel-sound");
+  if (mReelVideo && mReelSound) {
+    mReelSound.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var on = mReelVideo.muted;
+      mReelVideo.muted = !on;
+      mReelSound.setAttribute("aria-pressed", on ? "true" : "false");
+      mReelSound.setAttribute("aria-label", on ? "Slökkva á hljóði" : "Kveikja á hljóði");
+      if (on) mReelVideo.play().catch(function () {});
+    });
+  }
   document.getElementById("reel-close").addEventListener("click", function () {
     reelFull.pause();
     closeModal(reelModal);

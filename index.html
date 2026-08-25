@@ -7,7 +7,30 @@
 <meta name="description" content="Bach Media er efnisgerðarstofa sem hjálpar vörumerkjum að segja sterkari og eftirminnilegri sögur. Skipulag, myndbandsframleiðsla og dreifing.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0B0B0B">
-<link rel="icon" type="image/png" href="assets/wordmark.png">
+<link rel="canonical" href="https://sindrimar02.github.io/bachmedia-preview/">
+
+<!-- icons: the bare wordmark is white-on-transparent and vanishes in light UI,
+     so every icon is the mark on brand black -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<!-- share card: without an absolute og:image, iMessage scrapes the first image
+     on the page (it was picking a client logo) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bach Media">
+<meta property="og:locale" content="is_IS">
+<meta property="og:title" content="Bach Media, efnisgerðarstofa">
+<meta property="og:description" content="Myndbönd sem fær fólk til að stoppa. Skipulag, myndbandsframleiðsla og dreifing.">
+<meta property="og:url" content="https://sindrimar02.github.io/bachmedia-preview/">
+<meta property="og:image" content="https://sindrimar02.github.io/bachmedia-preview/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bach Media">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bach Media, efnisgerðarstofa">
+<meta name="twitter:description" content="Myndbönd sem fær fólk til að stoppa.">
+<meta name="twitter:image" content="https://sindrimar02.github.io/bachmedia-preview/assets/share.jpg">
 <link rel="preload" href="fonts/hanken-grotesk-v12-latin_latin-ext-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/anton-v27-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/jetbrains-mono-v24-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -94,19 +117,21 @@
       </div>
 
       <div class="hero__reel" id="hero-reel">
-        <video id="reel-preview" src="assets/reel.mp4" muted loop playsinline preload="metadata" aria-label="Sýnishorn úr efni Bach Media"></video>
+        <video id="reel-preview" src="assets/reel.mp4" poster="assets/reel-poster.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Sýnishorn úr efni Bach Media"></video>
       </div>
     </div>
   </section>
 
-  <!-- mobile-only reel card (the pin is desktop-only) -->
+  <!-- mobile-only reel card (the pin is desktop-only). No play chip: the video
+       plays itself. Tap enlarges, the corner button toggles sound. -->
   <section class="m-reel" aria-label="Sýnishorn">
-    <button type="button" class="m-reel__card" id="reel-open-m" aria-label="Horfa á sýnishornið">
-      <video src="assets/reel.mp4" muted loop playsinline preload="metadata" data-lazyplay></video>
-      <span class="reel-play__chip">
-        <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M15 8.134a1 1 0 0 1 0 1.732L1.5 17.66A1 1 0 0 1 0 16.794V1.206A1 1 0 0 1 1.5.34L15 8.134Z" fill="currentColor"/></svg>
-      </span>
-    </button>
+    <div class="m-reel__card">
+      <video id="m-reel-video" src="assets/reel.mp4" poster="assets/reel-poster.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-label="Sýnishorn úr efni Bach Media"></video>
+      <button type="button" class="m-reel__open" id="reel-open-m" aria-label="Stækka myndbandið"></button>
+      <button type="button" class="sound-btn" id="m-reel-sound" aria-pressed="false" aria-label="Kveikja á hljóði">
+        <span aria-hidden="true">HLJÓÐ</span>
+      </button>
+    </div>
   </section>
 
   <!-- ===== MANIFESTO: scroll word-fill ===== -->
@@ -179,42 +204,42 @@
         <div class="wstrip__track" id="wstrip-videos">
           <article class="work__card">
             <button type="button" data-video="01" aria-label="Spila Páskafrappó">
-              <video src="assets/work-01.mp4" poster="assets/work-01.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+              <video src="assets/work-01.mp4" poster="assets/work-01.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-hidden="true"></video>
             </button>
             <h3>Páskafrappó</h3>
             <span class="label-mono">0:06</span>
           </article>
           <article class="work__card">
             <button type="button" data-video="02" aria-label="Spila Matcha pöntunin">
-              <video src="assets/work-02.mp4" poster="assets/work-02.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+              <video src="assets/work-02.mp4" poster="assets/work-02.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-hidden="true"></video>
             </button>
             <h3>Matcha pöntunin</h3>
             <span class="label-mono">0:27</span>
           </article>
           <article class="work__card">
             <button type="button" data-video="03" aria-label="Spila Sirrý hlustar">
-              <video src="assets/work-03.mp4" poster="assets/work-03.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+              <video src="assets/work-03.mp4" poster="assets/work-03.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-hidden="true"></video>
             </button>
             <h3>Sirrý hlustar</h3>
             <span class="label-mono">0:14</span>
           </article>
           <article class="work__card">
             <button type="button" data-video="04" aria-label="Spila Eftirrétturinn">
-              <video src="assets/work-04.mp4" poster="assets/work-04.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+              <video src="assets/work-04.mp4" poster="assets/work-04.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-hidden="true"></video>
             </button>
             <h3>Eftirrétturinn</h3>
             <span class="label-mono">0:25</span>
           </article>
           <article class="work__card">
             <button type="button" data-video="05" aria-label="Spila Kakó matcha">
-              <video src="assets/work-05.mp4" poster="assets/work-05.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+              <video src="assets/work-05.mp4" poster="assets/work-05.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-hidden="true"></video>
             </button>
             <h3>Kakó matcha</h3>
             <span class="label-mono">0:56</span>
           </article>
           <article class="work__card">
             <button type="button" data-video="06" aria-label="Spila Helena á vaktinni">
-              <video src="assets/work-06.mp4" poster="assets/work-06.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+              <video src="assets/work-06.mp4" poster="assets/work-06.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-hidden="true"></video>
             </button>
             <h3>Helena á vaktinni</h3>
             <span class="label-mono">0:22</span>

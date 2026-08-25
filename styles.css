@@ -291,11 +291,23 @@ body.gate-locked{overflow:hidden}
 /* mobile reel card */
 .m-reel{padding:20px 16px 48px;background:var(--paper)}
 .m-reel__card{
-  position:relative;display:block;width:100%;aspect-ratio:1;
+  position:relative;width:100%;aspect-ratio:1;
   overflow:hidden;border-radius:5px;background:var(--black);
 }
 .m-reel__card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.m-reel__card .reel-play__chip{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+/* whole frame taps to enlarge; nothing is drawn over the footage */
+.m-reel__open{position:absolute;inset:0;width:100%;height:100%;background:none}
+/* the one control: sound */
+.sound-btn{
+  position:absolute;right:12px;bottom:12px;z-index:2;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;padding:0 16px;border-radius:5px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#fff;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(6px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);
+  transition:background-color .2s ease,box-shadow .2s ease;
+}
+.sound-btn[aria-pressed="true"]{background:var(--red);box-shadow:none}
 @media (min-width:768px){.m-reel{display:none}}
 
 /* ==========================================================================
@@ -369,20 +381,39 @@ body.on-black #verkefni .wsel li{border-color:rgba(255,255,255,.5)}
 @media (hover:hover) and (pointer:fine){
   .wsel__row:hover{opacity:1}
 }
+/* touch devices have no hover to reveal a dimmed row, so a 32% logo just
+   reads as disabled. Keep every client clearly legible; the red marker and
+   full-strength ink still show which one is selected. */
+@media (hover:none){
+  .wsel__row{opacity:.72}
+  .wsel__row.is-active{opacity:1}
+}
 .wsel__row .sq{
   width:8px;height:8px;background:var(--red);flex-shrink:0;
   opacity:0;transition:opacity .3s ease;
 }
 .wsel__row.is-committed .sq{opacity:1}
+/* one optical box for every mark: the logos have very different ink ratios
+   (Orkusalan is 4.2:1, Dominos is 1:1), so a shared HEIGHT would make the
+   square marks read tiny. contain inside a fixed box equalises visual mass. */
 .wsel__row img{
-  height:clamp(32px,3.4vw,48px);width:auto;
+  width:clamp(104px,13vw,152px);
+  height:clamp(46px,5.4vw,66px);
+  object-fit:contain;object-position:left center;
   filter:grayscale(1) brightness(.12);
   transition:filter .6s ease;
 }
+/* per-mark optical balance: the near-square marks carry less width, so they
+   get a little more height; the long wordmark gets slightly less. */
+.wsel__row img[alt="Dominos"],
+.wsel__row img[alt="Merki viðskiptavinar"]{height:clamp(52px,6.2vw,74px)}
+.wsel__row img[alt="Orkusalan"]{height:clamp(34px,4vw,48px)}
 body.on-black #verkefni .wsel__row img{filter:grayscale(1) brightness(2.6)}
 .wsel__text{
-  font-family:var(--font-sans);font-size:clamp(22px,2.4vw,34px);
-  letter-spacing:.12em;line-height:1;
+  font-family:var(--font-sans);font-size:clamp(20px,2.2vw,30px);
+  letter-spacing:.1em;line-height:1;
+  display:flex;align-items:center;
+  min-width:clamp(104px,13vw,152px);min-height:clamp(46px,5.4vw,66px);
 }
 .wsel__row .label-mono{margin-left:auto;color:var(--muted);transition:color .6s ease;white-space:nowrap}
 body.on-black #verkefni .wsel__row .label-mono{color:rgba(255,255,255,.55)}

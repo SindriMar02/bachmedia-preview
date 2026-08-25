@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bach Media, efnisgerðarstofa</title>
+<meta name="description" content="Bach Media er efnisgerðarstofa sem hjálpar vörumerkjum að segja sterkari og eftirminnilegri sögur. Skipulag, myndbandsframleiðsla og dreifing.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="icon" type="image/png" href="assets/wordmark.png">
+<link rel="preload" href="fonts/hanken-grotesk-v12-latin_latin-ext-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/anton-v27-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jetbrains-mono-v24-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/loader.gif" as="image">
+<link rel="preload" href="assets/wordmark.png" as="image">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="cursor" aria-hidden="true"></div>
+
+<!-- ===== GATE: their own loading screen, kept as-is (black + chalk CLIC gif
+     + wordmark); click splits it open into the page ===== -->
+<div id="gate" role="button" tabindex="0" aria-label="Smelltu til að opna síðuna">
+  <div class="gate__half gate__half--top"></div>
+  <div class="gate__half gate__half--bottom"></div>
+  <div class="gate__center">
+    <img class="gate__gif" src="assets/loader.gif" alt="" aria-hidden="true">
+    <img class="gate__mark" src="assets/wordmark.png" alt="Bach media.">
+  </div>
+</div>
+
+<!-- ===== NAV PILL ===== -->
+<div id="navwrap" aria-hidden="true">
+  <div id="navpill">
+    <nav class="nav-desktop" aria-label="Aðalvalmynd">
+      <ul class="nav-left">
+        <li><a href="#verkefni" data-anchor><span class="roll"><i>VERKEFNI</i><i aria-hidden="true">VERKEFNI</i></span></a></li>
+        <li><a href="#thjonustan" data-anchor><span class="roll"><i>ÞJÓNUSTAN</i><i aria-hidden="true">ÞJÓNUSTAN</i></span></a></li>
+      </ul>
+      <a class="nav-logo" href="#top" data-anchor aria-label="Bach Media, efst á síðu">
+        <img src="assets/wordmark.png" alt="Bach media.">
+      </a>
+      <ul class="nav-right">
+        <li><a href="#teymid" data-anchor><span class="roll"><i>TEYMIÐ</i><i aria-hidden="true">TEYMIÐ</i></span></a></li>
+        <li><button type="button" id="nav-contact"><span class="roll"><i>HAFÐU SAMBAND</i><i aria-hidden="true">HAFÐU SAMBAND</i></span></button></li>
+      </ul>
+    </nav>
+    <div class="nav-mobile">
+      <div class="nav-mobile__row">
+        <button type="button" id="burger" aria-label="Opna valmynd" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+        <a class="nav-logo" href="#top" data-anchor aria-label="Bach Media, efst á síðu">
+          <img src="assets/wordmark.png" alt="Bach media.">
+        </a>
+        <button type="button" id="nav-contact-m">SAMBAND</button>
+      </div>
+      <div id="nav-menu">
+        <ul>
+          <li><a href="#manifesto" data-anchor>Um okkur</a></li>
+          <li><a href="#verkefni" data-anchor>Verkefni</a></li>
+          <li><a href="#thjonustan" data-anchor>Þjónustan</a></li>
+          <li><a href="#teymid" data-anchor>Teymið</a></li>
+          <li><a href="https://boka.bachmedia.is/" target="_blank" rel="noopener">Bóka stúdíó</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="page">
+
+  <!-- ===== HERO: 300vh pin, headline drop, floating wordmark, corner-grow showreel ===== -->
+  <section id="hero" aria-label="Bach Media">
+    <div class="hero__stage">
+      <div class="guides" aria-hidden="true"><div class="guides__frame"><div class="guides__cols"><i></i><i></i><i></i><i></i></div></div></div>
+
+      <div class="hero__headline" id="hero-headline">
+        <h1>Myndbönd sem fær fólk til&nbsp;að&nbsp;stoppa.</h1>
+      </div>
+
+      <div class="hero__mark" id="hero-mark" aria-hidden="true">
+        <img src="assets/wordmark.png" alt="">
+      </div>
+
+      <div class="hero__copy" id="hero-copy">
+        <p>Við sérhæfum okkur í framleiðslu á myndböndum og stafrænu efni fyrir fyrirtæki sem vilja sjást.</p>
+        <button type="button" class="btn btn--red" id="hero-cta">HAFÐU SAMBAND</button>
+      </div>
+
+      <div class="hero__rec label-mono" id="hero-rec" aria-hidden="true">
+        <i class="hero__rec-dot"></i>REC <span id="rec-time">00:00:00</span>
+      </div>
+
+      <div class="hero__reel" id="hero-reel">
+        <video id="reel-preview" src="assets/reel.mp4" muted loop playsinline preload="metadata" aria-label="Sýnishorn úr efni Bach Media"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- mobile-only reel card (the pin is desktop-only) -->
+  <section class="m-reel" aria-label="Sýnishorn">
+    <button type="button" class="m-reel__card" id="reel-open-m" aria-label="Horfa á sýnishornið">
+      <video src="assets/reel.mp4" muted loop playsinline preload="metadata" data-lazyplay></video>
+      <span class="reel-play__chip">
+        <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M15 8.134a1 1 0 0 1 0 1.732L1.5 17.66A1 1 0 0 1 0 16.794V1.206A1 1 0 0 1 1.5.34L15 8.134Z" fill="currentColor"/></svg>
+      </span>
+    </button>
+  </section>
+
+  <!-- ===== MANIFESTO: scroll word-fill ===== -->
+  <section id="manifesto" aria-label="Um okkur">
+    <div class="guides" aria-hidden="true"><div class="guides__frame"><div class="guides__cols"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="wrap manifesto__grid">
+      <span class="label-mono">UM OKKUR</span>
+      <div class="manifesto__body">
+        <p class="wordfill" id="wordfill-about">Bach Media er efnisgerðarstofa sem hjálpar vörumerkjum að segja sterkari og eftirminnilegri sögur. Frá fyrstu hugmynd að lokadreifingu vinnum við með vörumerkjum sem vilja ekki bara sjást heldur skilja eitthvað eftir sig.</p>
+        <div class="manifesto__chips">
+          <ul>
+            <li><i class="sq" aria-hidden="true"></i><span data-chip>Frá fyrstu hugmynd að lokadreifingu</span></li>
+            <li><i class="sq" aria-hidden="true"></i><span data-chip>Þrjú í teyminu, ekkert millilag</span></li>
+          </ul>
+          <ul>
+            <li><i class="sq" aria-hidden="true"></i><span data-chip>Stúdíó fyrir ljósmyndun og podcast</span></li>
+            <li><i class="sq" aria-hidden="true"></i><span data-chip>Efni sniðið að hverjum vettvangi</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VERKEFNIN: company selector rows + the chosen company's videos ===== -->
+  <section id="verkefni" aria-label="Verkefnin">
+    <div class="guides" aria-hidden="true"><div class="guides__frame"><div class="guides__cols"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="wrap">
+      <h2 class="work__title">Verkefnin</h2>
+      <p class="work__lede">Fyrirtæki sem treysta okkur, og efnið sem við gerum fyrir þau.</p>
+      <div class="work__body">
+      <ul class="wsel" id="wsel">
+        <li>
+          <button type="button" class="wsel__row is-active" data-client="tekaffi" aria-pressed="true">
+            <i class="sq" aria-hidden="true"></i>
+            <img src="assets/logo-tekaffi.png" alt="Te &amp; Kaffi" width="1468" height="900">
+            <span class="label-mono">6 MYNDBÖND</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="wsel__row" data-client="hus" aria-pressed="false">
+            <i class="sq" aria-hidden="true"></i>
+            <img src="assets/logo-house.png" alt="Merki viðskiptavinar" width="300" height="225">
+            <span class="label-mono">Í VINNSLU</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="wsel__row" data-client="dominos" aria-pressed="false">
+            <i class="sq" aria-hidden="true"></i>
+            <img src="assets/logo-dominos.png" alt="Dominos" width="300" height="225">
+            <span class="label-mono">Í VINNSLU</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="wsel__row" data-client="orkusalan" aria-pressed="false">
+            <i class="sq" aria-hidden="true"></i>
+            <img src="assets/logo-orkusalan.png" alt="Orkusalan" width="300" height="225">
+            <span class="label-mono">Í VINNSLU</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="wsel__row" data-client="hreyfing" aria-pressed="false">
+            <i class="sq" aria-hidden="true"></i>
+            <span class="wsel__text">HREYFING</span>
+            <span class="label-mono">Í VINNSLU</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="wstrip" id="wstrip">
+        <div class="wstrip__track" id="wstrip-videos">
+          <article class="work__card">
+            <button type="button" data-video="01" aria-label="Spila Páskafrappó">
+              <video src="assets/work-01.mp4" poster="assets/work-01.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+            </button>
+            <h3>Páskafrappó</h3>
+            <span class="label-mono">0:06</span>
+          </article>
+          <article class="work__card">
+            <button type="button" data-video="02" aria-label="Spila Matcha pöntunin">
+              <video src="assets/work-02.mp4" poster="assets/work-02.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+            </button>
+            <h3>Matcha pöntunin</h3>
+            <span class="label-mono">0:27</span>
+          </article>
+          <article class="work__card">
+            <button type="button" data-video="03" aria-label="Spila Sirrý hlustar">
+              <video src="assets/work-03.mp4" poster="assets/work-03.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+            </button>
+            <h3>Sirrý hlustar</h3>
+            <span class="label-mono">0:14</span>
+          </article>
+          <article class="work__card">
+            <button type="button" data-video="04" aria-label="Spila Eftirrétturinn">
+              <video src="assets/work-04.mp4" poster="assets/work-04.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+            </button>
+            <h3>Eftirrétturinn</h3>
+            <span class="label-mono">0:25</span>
+          </article>
+          <article class="work__card">
+            <button type="button" data-video="05" aria-label="Spila Kakó matcha">
+              <video src="assets/work-05.mp4" poster="assets/work-05.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+            </button>
+            <h3>Kakó matcha</h3>
+            <span class="label-mono">0:56</span>
+          </article>
+          <article class="work__card">
+            <button type="button" data-video="06" aria-label="Spila Helena á vaktinni">
+              <video src="assets/work-06.mp4" poster="assets/work-06.jpg" muted loop playsinline preload="metadata" data-lazyplay aria-hidden="true"></video>
+            </button>
+            <h3>Helena á vaktinni</h3>
+            <span class="label-mono">0:22</span>
+          </article>
+        </div>
+        <div class="wstrip__empty" id="wstrip-empty" hidden>
+          <div class="wstrip__ghost" aria-hidden="true"></div>
+          <div class="wstrip__ghost" aria-hidden="true"></div>
+          <p class="label-mono">EFNIÐ ÞEIRRA BIRTIST HÉR</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STAGE: 600vh black chant, their three services ===== -->
+  <section id="thjonustan" aria-label="Þjónustan">
+    <h2 class="sr-only">Þjónustan: skipulag, myndbandsframleiðsla og dreifing</h2>
+
+    <!-- mobile static twin -->
+    <div class="stage-m">
+      <div class="stage-m__rule"></div>
+      <div class="stage-m__chant">
+        <span>SKIPULAG</span>
+        <span>FRAMLEIÐSLA</span>
+        <span>DREIFING</span>
+      </div>
+      <p class="stage-m__line">Hvert skref nauðsynlegt. Öll í&nbsp;takti.</p>
+      <div class="stage-m__cards">
+        <article>
+          <span class="label-mono label-mono--red">SKIPULAG</span>
+          <h3>Byrjum strax á réttum stað.</h3>
+          <p>Góður grunnur skiptir öllu máli til að byrja strax á réttum stað. Við byggjum þennan grunn saman.</p>
+        </article>
+        <article>
+          <span class="label-mono label-mono--red">MYNDBANDSFRAMLEIÐSLA</span>
+          <h3>Frá handriti til skjás.</h3>
+          <p>Við sjáum um allt myndbandssköpunarferlið af nákvæmni og umhyggju.</p>
+        </article>
+        <article>
+          <span class="label-mono label-mono--red">DREIFING</span>
+          <h3>Efnið á réttan vettvang.</h3>
+          <p>Við ýtum efni á rétta vettvang, greinum frammistöðu og betrumbætum fyrir sýnileika.</p>
+        </article>
+      </div>
+      <p class="stage-m__finale">Við vinnum með vörumerkjum sem vilja ekki bara sjást heldur skilja eitthvað eftir sig.</p>
+    </div>
+
+    <!-- desktop pinned stage -->
+    <div class="stage-d" id="stage">
+      <div class="stage__sticky">
+        <div class="stage__rule" aria-hidden="true"></div>
+        <svg class="stage__cross" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <circle cx="720" cy="400" r="215" pathLength="1"/>
+          <circle cx="720" cy="400" r="380" pathLength="1"/>
+          <line x1="20" y1="400" x2="1420" y2="400" pathLength="1"/>
+          <line x1="720" y1="14" x2="720" y2="786" pathLength="1"/>
+        </svg>
+        <div class="stage__chant" id="chant" aria-hidden="true">
+          <span data-word="0">SKIPULAG</span>
+          <span data-word="1">FRAMLEIÐSLA</span>
+          <span data-word="2">DREIFING</span>
+          <p class="stage__tag" id="chant-tag">Hvert skref nauðsynlegt. Öll í&nbsp;takti.</p>
+        </div>
+        <article class="stage__card" data-card="0">
+          <span class="label-mono label-mono--red">SKIPULAG</span>
+          <h3>Byrjum strax á réttum stað.</h3>
+          <p>Góður grunnur skiptir öllu máli til að byrja strax á réttum stað. Við byggjum þennan grunn saman.</p>
+        </article>
+        <article class="stage__card stage__card--left" data-card="1">
+          <span class="label-mono label-mono--red">MYNDBANDSFRAMLEIÐSLA</span>
+          <h3>Frá handriti til skjás.</h3>
+          <p>Við sjáum um allt myndbandssköpunarferlið af nákvæmni og umhyggju.</p>
+        </article>
+        <article class="stage__card" data-card="2">
+          <span class="label-mono label-mono--red">DREIFING</span>
+          <h3>Efnið á réttan vettvang.</h3>
+          <p>Við ýtum efni á rétta vettvang, greinum frammistöðu og betrumbætum fyrir sýnileika.</p>
+        </article>
+        <div class="stage__finale" id="stage-finale">
+          <p id="wordfill-finale">Við vinnum með vörumerkjum sem vilja ekki bara sjást heldur skilja eitthvað eftir sig.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEYMID: proof table with their real people ===== -->
+  <section id="teymid" aria-label="Teymið">
+    <div class="guides" aria-hidden="true"><div class="guides__frame"><div class="guides__cols"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="wrap">
+      <h2 class="proof__title">Teymið.<br>Fólkið sem þú hittir<br>vinnur verkið.</h2>
+      <ul class="proof__rows">
+        <li>
+          <span class="proof__claim">Egill Árni Bachmann</span>
+          <div class="proof__detail">
+            <img src="assets/egill.jpg" alt="Egill Árni Bachmann" loading="lazy" width="136" height="136">
+            <p><span>Eigandi, framkvæmdastjóri.</span> <span class="muted">Leiðir verkefnin frá fyrsta spjalli að lokaskilum.</span></p>
+            <a class="proof__mail" href="mailto:egill@bachmedia.is">egill@bachmedia.is</a>
+          </div>
+        </li>
+        <li>
+          <span class="proof__claim">Baldur Einarsson</span>
+          <div class="proof__detail">
+            <img src="assets/baldur.jpg" alt="Baldur Einarsson" loading="lazy" width="136" height="136">
+            <p><span>Meðeigandi, framleiðslustjóri.</span> <span class="muted">Heldur utan um tökur, klippingu og allt þar á milli.</span></p>
+            <a class="proof__mail" href="mailto:baldur@bachmedia.is">baldur@bachmedia.is</a>
+          </div>
+        </li>
+        <li>
+          <span class="proof__claim">Helena O’Connor</span>
+          <div class="proof__detail">
+            <img src="assets/helena.jpg" alt="Helena O’Connor" loading="lazy" width="136" height="136">
+            <p><span>Birtingarstjóri.</span> <span class="muted">Kemur efninu á réttan vettvang og fylgir því eftir.</span></p>
+            <a class="proof__mail" href="mailto:helena@bachmedia.is">helena@bachmedia.is</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== STUDIO strip ===== -->
+  <section id="studio" aria-label="Stúdíó">
+    <div class="guides" aria-hidden="true"><div class="guides__frame"><div class="guides__cols"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="wrap studio__grid">
+      <div class="studio__media">
+        <img src="assets/still.jpg" alt="Bach Media, svarthvít mynd af jakka með merki stofunnar" loading="lazy">
+      </div>
+      <div class="studio__body">
+        <h2>Stúdíóið er líka þitt.</h2>
+        <p>Ljósmyndastúdíó og podcast-aðstaða, bókanleg beint á netinu. Hvort sem þú ert að taka upp næsta þátt eða mynda næstu herferð.</p>
+        <a class="btn btn--ghost" href="https://boka.bachmedia.is/" target="_blank" rel="noopener">BÓKA STÚDÍÓ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" aria-label="Spurningar">
+    <div class="guides" aria-hidden="true"><div class="guides__frame"><div class="guides__cols"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="wrap faq__wrap">
+      <h2>Spurningar sem borga sig<br>að spyrja fyrst.</h2>
+      <ul class="faq__list">
+        <li>
+          <button type="button" class="faq__q" aria-expanded="true">
+            <h3>Hvernig byrjar samstarf?</h3>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a" hidden>
+            <p><span>Þú sendir okkur línu og við tökum spjall um hugmyndina.</span> <span class="muted">Skipulagið byrjar á réttum stað og grunnurinn er byggður saman áður en nokkuð fer í tökur.</span></p>
+          </div>
+        </li>
+        <li>
+          <button type="button" class="faq__q" aria-expanded="false">
+            <h3>Þurfum við að vera með fullmótaða hugmynd?</h3>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a" hidden>
+            <p><span>Nei, hugmynd á frumstigi er fínn upphafspunktur.</span> <span class="muted">Við vinnum ferlið með ykkur, frá fyrstu hugmynd að lokadreifingu.</span></p>
+          </div>
+        </li>
+        <li>
+          <button type="button" class="faq__q" aria-expanded="false">
+            <h3>Hver sér um verkefnið okkar?</h3>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a" hidden>
+            <p><span>Fólkið sem þú hittir er fólkið sem vinnur verkið.</span> <span class="muted">Egill, Baldur og Helena, ekkert millilag og engin yfirfærsla á annað teymi.</span></p>
+          </div>
+        </li>
+        <li>
+          <button type="button" class="faq__q" aria-expanded="false">
+            <h3>Er hægt að bóka stúdíóið eitt og sér?</h3>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a" hidden>
+            <p><span>Já.</span> <span class="muted">Ljósmyndastúdíóið og podcast-aðstaðan eru bókanleg beint á boka.bachmedia.is.</span></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER: black fixed reveal ===== -->
+<footer id="contact" aria-label="Hafðu samband">
+  <div class="wrap footer__top">
+    <img class="footer__mark-sm" src="assets/wordmark.png" alt="" aria-hidden="true">
+    <div class="footer__body">
+      <h2>Vertu eftirminnileg.</h2>
+      <p>Hvort sem þú ert að bóka stúdíó, taka upp podcast eða skipuleggja næstu herferð, þá er næsta skref að senda okkur línu.</p>
+      <button type="button" class="btn btn--red" id="footer-cta">HAFÐU SAMBAND</button>
+    </div>
+  </div>
+  <div class="footer__giant">
+    <img src="assets/wordmark.png" alt="Bach media.">
+  </div>
+  <div class="wrap footer__legal">
+    <span class="label-mono">© 2026 Bach Media · Bachmedia@bachmedia.is</span>
+    <span class="label-mono footer__proto">Frumgerð, hönnunartillaga SNDR</span>
+  </div>
+</footer>
+
+<!-- ===== CONTACT MODAL ===== -->
+<div id="contact-modal" role="dialog" aria-modal="true" aria-label="Hafðu samband" hidden>
+  <button type="button" class="modal-close" id="contact-close" aria-label="Loka">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.5 1.5L18.5 18.5M18.5 1.5L1.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <div class="cmodal__scroll">
+    <div class="wrap cmodal__inner">
+      <div class="cmodal__head">
+        <img src="assets/wordmark.png" alt="" aria-hidden="true" class="cmodal__mark">
+        <h2>Segðu okkur frá verkefninu.</h2>
+      </div>
+      <form id="contact-form">
+        <div class="cmodal__grid">
+          <div class="field">
+            <label for="f-name">Nafn*</label>
+            <input id="f-name" name="name" type="text" placeholder="Nafn" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="f-email">Vefpóstur*</label>
+            <input id="f-email" name="email" type="email" placeholder="netfang@fyrirtaeki.is" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="f-phone">Símanúmer</label>
+            <input id="f-phone" name="phone" type="tel" placeholder="Símanúmer" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="f-service">Hvernig getum við hjálpað?*</label>
+            <select id="f-service" name="service" required>
+              <option value="" disabled selected>Veldu þjónustu</option>
+              <option>Myndbandsframleiðsla</option>
+              <option>Ljósmyndastúdíó</option>
+              <option>Podcast-stúdíó</option>
+              <option>Annað</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <label for="f-msg">Segðu okkur frá verkefninu*</label>
+            <textarea id="f-msg" name="message" rows="7" placeholder="Skrifaðu nokkrar línur…" required></textarea>
+          </div>
+        </div>
+        <p class="cmodal__note muted">Þegar þú sendir opnast tölvupóstur á Bachmedia@bachmedia.is með upplýsingunum útfylltum.</p>
+        <div class="cmodal__actions">
+          <button type="submit" class="btn btn--red">SENDA</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SHOWREEL MODAL ===== -->
+<div id="reel-modal" role="dialog" aria-modal="true" aria-label="Sýnishorn" hidden>
+  <button type="button" class="modal-close modal-close--light" id="reel-close" aria-label="Loka">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.5 1.5L18.5 18.5M18.5 1.5L1.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <div class="reel-modal__panel">
+    <video id="reel-full" src="assets/reel.mp4" controls playsinline preload="none"></video>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

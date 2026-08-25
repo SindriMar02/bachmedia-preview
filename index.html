@@ -129,7 +129,16 @@
       <video id="m-reel-video" src="assets/reel.mp4" poster="assets/reel-poster.jpg" muted loop playsinline autoplay preload="metadata" data-lazyplay aria-label="Sýnishorn úr efni Bach Media"></video>
       <button type="button" class="m-reel__open" id="reel-open-m" aria-label="Stækka myndbandið"></button>
       <button type="button" class="sound-btn" id="m-reel-sound" aria-pressed="false" aria-label="Kveikja á hljóði">
-        <span aria-hidden="true">HLJÓÐ</span>
+        <!-- Tabler Icons (MIT): volume-off / volume -->
+        <svg class="ico ico--off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 15H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h2l3.5-4.5a.8.8 0 0 1 1.5.5v14a.8.8 0 0 1-1.5.5L6 15"/>
+          <path d="M16 10l4 4m0-4l-4 4"/>
+        </svg>
+        <svg class="ico ico--on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 15H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h2l3.5-4.5a.8.8 0 0 1 1.5.5v14a.8.8 0 0 1-1.5.5L6 15"/>
+          <path d="M15 8a5 5 0 0 1 0 8"/>
+          <path d="M17.7 5a9 9 0 0 1 0 14"/>
+        </svg>
       </button>
     </div>
   </section>

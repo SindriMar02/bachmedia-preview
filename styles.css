@@ -454,7 +454,7 @@ body.on-black #verkefni .wstrip__empty>p{color:rgba(255,255,255,.6)}
 .stage-m__chant{
   display:flex;flex-direction:column;padding:56px 24px 0;
   font-family:var(--font-chant);line-height:.92;text-transform:uppercase;
-  font-size:clamp(58px,19vw,120px);
+  font-size:clamp(44px,16.4vw,104px);
 }
 .stage-m__line{padding:28px 24px 0;font-size:22px;letter-spacing:-.01em}
 .stage-m__cards{display:flex;flex-direction:column;gap:40px;padding:56px 24px 0}

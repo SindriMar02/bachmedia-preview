@@ -563,17 +563,25 @@ body.on-black #verkefni .wstrip__empty>p{color:rgba(255,255,255,.6)}
   display:flex;flex-direction:column;gap:16px;
 }
 .proof__claim{font-size:clamp(26px,3vw,42px);line-height:1.1;letter-spacing:-.02em}
-.proof__detail{display:flex;align-items:flex-start;gap:24px}
+/* mobile: portrait + bio share a row, the address gets its own full-width
+   line. A nowrap 143px address in a 3-column flex left the bio ~100px wide
+   and pushed the address past the screen edge. */
+.proof__detail{display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px 20px}
 .proof__detail img{
-  width:109px;height:109px;object-fit:cover;border-radius:2px;flex-shrink:0;
+  width:96px;height:96px;object-fit:cover;border-radius:2px;flex-shrink:0;
 }
-.proof__detail p{flex:1;font-size:clamp(15px,1.35vw,20px);line-height:1.35}
+.proof__detail p{
+  flex:1 1 160px;min-width:0;
+  font-size:clamp(15px,1.35vw,20px);line-height:1.35;
+}
 .proof__mail{
+  flex:0 0 100%;
   font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;
   display:inline-flex;align-items:center;min-height:44px;
-  border-bottom:1px solid currentColor;padding-bottom:2px;align-self:flex-start;
-  transition:opacity .15s ease;white-space:nowrap;
+  border-bottom:0;transition:opacity .15s ease;
+  overflow-wrap:anywhere;
 }
+.proof__mail span{border-bottom:1px solid currentColor;padding-bottom:2px}
 .proof__mail:hover{opacity:.55}
 @media (min-width:768px){
   #teymid{padding:110px 0 140px}
@@ -581,9 +589,9 @@ body.on-black #verkefni .wstrip__empty>p{color:rgba(255,255,255,.6)}
   .proof__claim{width:50%;flex-shrink:0}
   .proof__detail{width:50%}
   .proof__detail img{width:136px;height:136px}
-  .proof__detail{flex-wrap:wrap}
-  .proof__detail p{min-width:200px}
-  .proof__mail{margin-top:6px}
+  .proof__detail img{width:136px;height:136px}
+  .proof__detail p{flex:1 1 200px}
+  .proof__mail{flex:0 0 auto;margin-top:6px}
 }
 
 /* ==========================================================================
